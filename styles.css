@@ -1,0 +1,52 @@
+﻿html, body {
+	height: 100%;
+	
+}
+
+body {
+	font-family: sans-serif;
+	font-size: 14px;
+	line-height: 1.6em;
+	margin: 0;
+	padding: 0;
+}
+
+/**
+ * Ceci applique une couleur sur tous les éléments
+ * ayant la classe rouge.
+ */
+.rouge {
+	color: red;
+}
+
+/**
+ * Ceci aligne le texte de tous les titres de niveau 
+ * 1 de manière centrée
+ **/
+h1 {
+	text-align: center;
+}
+
+.maClasse {
+	width: 100%;
+	border: 2px dashed blue;
+}
+#map {
+   height: 100%;
+}
+
+.division2{
+   width:50%;
+}
+
+#txtarea{
+   width:100%
+}
+
+#btnanglais{
+   width:100%
+}
+
+#btnfrancais{
+   width:100%
+}
