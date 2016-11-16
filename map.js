@@ -42,9 +42,11 @@
 	document.getElementById("txtarea").onchange = function() {changerVille()};
 	function changerVille(){
 		var ville = $("#txtarea").val();
-		initMap(objects[ville].lat,objects[ville].lon).fail(function() { //a modifier
-  			alert("Cette ville n'existe pas");
-		});
+		try{		
+			initMap(objects[ville].lat,objects[ville].lon);
+		}catch(err){
+			alert(err);
+		}
 		$("p").hide();
 	}
 });
@@ -52,11 +54,17 @@
 
 
 var map;
-function initMap(lat,lng) {
-       map = new google.maps.Map(document.getElementById('map'), {
-       center: {lat: lat, lng: lng},
-       zoom: 10
-       });
+function initMap(lat,lng){
+	try {
+   	 	map = new google.maps.Map(document.getElementById('map'), {
+       		center: {lat: lat, lng: lng},
+       		zoom: 10
+       		});
+	}
+	catch(err) {
+    		throw "Cette ville n'existe pas";
+	}
+       
 }
 
 
