@@ -33,24 +33,25 @@
 	$("#btnfrancais").click(function(){
 		$('h1').html("Retrouve une ville du Quebec!");
 		$("p").html("Entrez une ville pour la retrouver sur la carte Google Maps!");
-		var ville = $("#txtarea").val();
-		initMap(objects[ville].lat,objects[ville].lon)
-		// Ceci cache tous les paragraphes sur la page
-		$("p").hide();
 	});
 
 	$("#btnanglais").click(function(){
 		 $('h1').html("Find a city in Quebec!");
 		 $("p").html("Enter a city to find it on Google maps");
 	});
+	document.getElementById("txtarea").onchange = function() {changerVille()};
+	function changerVille(){
+		var ville = $("#txtarea").val();
+		initMap(objects[ville].lat,objects[ville].lon).fail(function() { //a modifier
+  			alert("Cette ville n'existe pas");
+		});
+		$("p").hide();
+	}
 });
 
 
-var map;
-function initMap(obj) {
-       initMap(obj.lat, obj.lon);
-}
 
+var map;
 function initMap(lat,lng) {
        map = new google.maps.Map(document.getElementById('map'), {
        center: {lat: lat, lng: lng},
