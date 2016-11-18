@@ -7,16 +7,18 @@
 	var availableTags = [];	
 
 	$.getJSON( "villes.json", function( data , objects ) {			
-		var o = {};		
+		var o = {};	
+		var a= [];	
 		$.each(data, function (key, value) {
 			o[key]=value; 
-			availableTags.push(key);
+			a.push(key);
 		});
-		envoieData(o);
+		envoieData(o,a);
 	});
 
-	function envoieData(o) {
+	function envoieData(o,a) {
 		objects = o;
+		availableTags = a;
 	}
     
 	// $ est un raccourci pour jQuery
@@ -39,19 +41,32 @@
 		 $('h1').html("Find a city in Quebec!");
 		 $("p").html("Enter a city to find it on Google maps");
 	});
-	document.getElementById("txtarea").onchange = function() {changerVille()};
+
+	$( "#txtarea" ).on('change',function() {
+  		changerVille();
+	});
+
+	$('#txtarea').on('input', function() { 
+    	var valActuelle = $(this).val();
+    	var table = document.getElementById("autoComplete");
+    	$("#autoComplete tr").remove(); 
+    	for(i =0; i < availableTags.length; i++){
+    		if(availableTags[i].startsWith(valActuelle)){
+    			table.insertRow(0).innerHTML = availableTags[i];
+    		}
+    	}
+	});
+	
 	function changerVille(){
 		var ville = $("#txtarea").val();
 		try{		
 			initMap(objects[ville].lat,objects[ville].lon);
 		}catch(err){
-			alert(err);
+			alert("Cette ville n'existe pas");
 		}
 		$("p").hide();
 	}
 });
-
-
 
 var map;
 function initMap(lat,lng){

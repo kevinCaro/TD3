@@ -32,11 +32,7 @@ h1 {
 	border: 2px dashed blue;
 }
 #map {
-   height: 100%;
-}
-
-.division2{
-   width:50%;
+   height: 100%
 }
 
 #txtarea{
@@ -49,4 +45,16 @@ h1 {
 
 #btnfrancais{
    width:100%
+}
+
+#rw{
+	z-index: 99;
+}
+
+#autoComplete{
+	position: absolute;
+	background-color: white;
+	z-index: 99;
+	border: 2px solid black;
+	width : 100%;
 }
