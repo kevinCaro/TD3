@@ -47,14 +47,15 @@ h1 {
    width:100%
 }
 
-#rw{
-	z-index: 99;
-}
-
 #autoComplete{
 	position: absolute;
 	background-color: white;
 	z-index: 99;
 	border: 2px solid black;
+	width : 95%;
+}
+
+table tr:hover{
+	background-color: gray;
 	width : 100%;
 }

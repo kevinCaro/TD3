@@ -1,4 +1,4 @@
-﻿$(document).ready(function(){
+$(document).ready(function(){
 	// Ecrivez ici tout le code qui doit s'éxecuter lorsque
 	// la page est complètement chargée
 	initMap(45.633331,-72.550003);
@@ -46,6 +46,12 @@
   		changerVille();
 	});
 
+	 $(document).on('click', '#autoComplete tr', function(){
+        document.getElementById("txtarea").value = $(this).text();
+        $("#autoComplete tr").remove(); 
+        changerVille();
+    });
+
 	$('#txtarea').on('input', function() { 
     	var valActuelle = $(this).val();
     	var table = document.getElementById("autoComplete");
@@ -61,20 +67,28 @@
 		var ville = $("#txtarea").val();
 		try{		
 			initMap(objects[ville].lat,objects[ville].lon);
+			$("p").hide();
 		}catch(err){
 			alert("Cette ville n'existe pas");
 		}
-		$("p").hide();
+	}
+
+	function selection(){
+		alert("click");
 	}
 });
 
-var map;
+var map, marker;
 function initMap(lat,lng){
 	try {
    	 	map = new google.maps.Map(document.getElementById('map'), {
        		center: {lat: lat, lng: lng},
-       		zoom: 10
+       		zoom: 10,
        		});
+   	 	var marker = new google.maps.Marker({
+  		position: {lat: lat, lng: lng},
+  		map: map
+		});
 	}
 	catch(err) {
     		throw "Cette ville n'existe pas";
