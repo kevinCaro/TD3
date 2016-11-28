@@ -48,7 +48,7 @@ $(document).ready(function(){
     	for(i = 0; i < availableTags.length ; i++){ //parcours inverse pour pouvoir trier l'autocomplete en ordre alphabethique sachant qu'on a creer le tableau dans le sens inverse.
     		if(availableTags[i].startsWith(valActuelle)){
     			if(nbColonne < 20){ //limie de 20
-    				table.insertRow(0).innerHTML = availableTags[i];
+    				table.insertRow().innerHTML = availableTags[i];
     				nbColonne++;
     			}else{
     				break;
