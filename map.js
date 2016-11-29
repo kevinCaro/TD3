@@ -2,15 +2,15 @@ $(document).ready(function(){
 
 	initMap(45.5,-73.550003); //Initisalise la carte a la position de Montreal (Par defaut)
     
-    var objects = {};
-	var availableTags = [];	
+    var objects = {}; // le tableau contenant les longeurs et les longitudes de chaque ville du Quebec
+	var availableTags = [];	// le tableau contenant les noms des villes pour l'autocomplete
 
 	$.getJSON( "villes.json", function( data , objects ) {	//lie le document JSON fournit 
 		var o = {};	
 		var a= [];	
 		$.each(data, function (key, value) {
-			o[key]=value; // le tableau contenant les longeurs et les longitudes de chaque ville du Quebec
-			a.push(key); // le tableau contenant les noms des villes pour l'autocomplete
+			o[key]=value; 
+			a.push(key); 
 		});
 		envoieData(o,a);
 	});
@@ -18,7 +18,14 @@ $(document).ready(function(){
 	function envoieData(o,a) { // un espece de contournement de la methode asynchrone $.getJSON()
 		objects = o;
 		availableTags = a;
-	}
+		$( "#txtarea" ).autocomplete( { //creer l'autocomplete dans le champ de recherche
+      		source: availableTags, //la liste des villes du Quebec
+      		minLength : 1, //la longueur minimale pour activer l'autocomplete
+      		select : function( event, ui ) { //fonction qui sera enclencher quand l'utilisateur aura selectionner un element
+        		changerVille(ui.item.value);
+     	    }
+    	});
+      }
     
 	$("#btnfrancais").click(function(){ //changer le texte en francais
 		$('h1').html("Retrouve une ville du Quebec!");
@@ -30,35 +37,7 @@ $(document).ready(function(){
 		 $("p").html("Enter a city to find it on Google maps");
 	});
 
-	$( "#txtarea" ).on('change',function() { //change de ville lorsqu'on a fini d'entrer une ville
-  		changerVille();
-	});
-
-	 $(document).on('click', '#autoComplete tr', function(){ //lorsqu'on choisit une case du autocomplete.
-        document.getElementById("txtarea").value = $(this).text();
-        $("#autoComplete tr").remove(); 
-        changerVille();
-    });
-
-	$('#txtarea').on('input', function() { //actualise la liste des possibilites pour faire l'autocompletion
-    	var valActuelle = $(this).val();
-    	var table = document.getElementById("autoComplete");
-    	$("#autoComplete tr").remove(); 
-    	var nbColonne = 0;
-    	for(i = 0; i < availableTags.length ; i++){ //parcours inverse pour pouvoir trier l'autocomplete en ordre alphabethique sachant qu'on a creer le tableau dans le sens inverse.
-    		if(availableTags[i].startsWith(valActuelle)){
-    			if(nbColonne < 20){ //limie de 20
-    				table.insertRow().innerHTML = availableTags[i];
-    				nbColonne++;
-    			}else{
-    				break;
-    			}
-    		}
-    	}
-	});
-	
-	function changerVille(){ //permet de changer de ville.
-		var ville = $("#txtarea").val();	
+	function changerVille(ville){ //permet de changer de ville.	
 		initMap(objects[ville].lat,objects[ville].lon);
 		$("p").hide();
 	}
@@ -66,7 +45,7 @@ $(document).ready(function(){
 
 var map, marker;
 function initMap(lat,lng){
-   	 	map = new google.maps.Map(document.getElementById('map'), { //permet de creer la map et de la placer au point desirer
+   	 	map = new google.maps.Map(document.getElementById('map'), { //permet de creer la map et de placer le focus au point desirer
        		center: {lat: lat, lng: lng},
        		zoom: 10,
        		});
