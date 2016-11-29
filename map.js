@@ -19,8 +19,8 @@ $(document).ready(function(){
 		objects = o;
 		availableTags = a;
 		$( "#txtarea" ).autocomplete( { //creer l'autocomplete dans le champ de recherche
+			minLength: 3, //longueur minimul de la valeur entrer afin d'activer l'autocomplete
       		source: availableTags, //la liste des villes du Quebec
-      		minLength : 1, //la longueur minimale pour activer l'autocomplete
       		select : function( event, ui ) { //fonction qui sera enclencher quand l'utilisateur aura selectionner un element
         		changerVille(ui.item.value);
      	    }
@@ -30,16 +30,19 @@ $(document).ready(function(){
 	$("#btnfrancais").click(function(){ //changer le texte en francais
 		$('h1').html("Retrouve une ville du Quebec!");
 		$("p").html("Entrez une ville pour la retrouver sur la carte Google Maps!");
+		$("#btnfrancais").html("Francais");
+		$("#btnanglais").html("Anglais");
 	});
 
 	$("#btnanglais").click(function(){ //changer le texte en anglais
 		 $('h1').html("Find a city in Quebec!");
 		 $("p").html("Enter a city to find it on Google maps");
+		 $("#btnfrancais").html("French");
+		$("#btnanglais").html("English");
 	});
 
 	function changerVille(ville){ //permet de changer de ville.	
 		initMap(objects[ville].lat,objects[ville].lon);
-		$("p").hide();
 	}
 });
 
