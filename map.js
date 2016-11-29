@@ -5,7 +5,7 @@ $(document).ready(function(){
     var objects = {}; // le tableau contenant les longeurs et les longitudes de chaque ville du Quebec
 	var availableTags = [];	// le tableau contenant les noms des villes pour l'autocomplete
 
-	$.getJSON( "villes.json", function( data , objects ) {	//lie le document JSON fournit 
+	$.getJSON( "villes.json", function( data , objects ) {	//lie le fichier JSON fournit 
 		var o = {};	
 		var a= [];	
 		$.each(data, function (key, value) {
