@@ -28,14 +28,14 @@ $(document).ready(function(){
       }
     
 	$("#btnfrancais").click(function(){ //changer le texte en francais
-		$('h1').html("Retrouve une ville du Quebec!");
+		$('h1').html("La Carte du Québec");
 		$("p").html("Entrez une ville pour la retrouver sur la carte Google Maps!");
 		$("#btnfrancais").html("Francais");
 		$("#btnanglais").html("Anglais");
 	});
 
 	$("#btnanglais").click(function(){ //changer le texte en anglais
-		 $('h1').html("Find a city in Quebec!");
+		 $('h1').html("Map of Quebec");
 		 $("p").html("Enter a city to find it on Google maps");
 		 $("#btnfrancais").html("French");
 		$("#btnanglais").html("English");
